@@ -14,6 +14,3 @@ def getPixelArray(file):
     return array
 
 
-def saveNewBitmap(array, filename):
-    """Saves a new bitmap image file. Debug use only."""
-    pass
