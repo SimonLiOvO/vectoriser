@@ -1,7 +1,7 @@
 from PIL import Image
 
 
-def getBitmapSize(array):
+def getDimensions(array):
     """Returns the width and height of the bitmap iamge in a tuple"""
     x = len(array[0])
     y = len(array)
