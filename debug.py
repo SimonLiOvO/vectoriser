@@ -1,11 +1,5 @@
 from PIL import Image
-
-
-def getDimensions(array):
-    """Returns the width and height of the bitmap iamge in a tuple"""
-    x = len(array[0])
-    y = len(array)
-    return (x, y)
+import vectoriser as v
 
 
 def getColorMode(array):
@@ -18,7 +12,7 @@ def getColorMode(array):
 
 def saveBitmap(array, filename):
     """Saves a new bitmap image file. Debug use only."""
-    dimensions = getDimensions(array)
+    dimensions = v.getDimensions(array)
     img = Image.new(getColorMode(array), dimensions)
     for w in range(dimensions[0]):
         for h in range(dimensions[1]):
