@@ -16,7 +16,7 @@ def getColorMode(array):
         return "RGBA"
 
 
-def saveNewBitmap(array, filename):
+def saveBitmap(array, filename):
     """Saves a new bitmap image file. Debug use only."""
     dimensions = getDimensions(array)
     img = Image.new(getColorMode(array), dimensions)
@@ -24,5 +24,3 @@ def saveNewBitmap(array, filename):
         for h in range(dimensions[1]):
             img.putpixel((w, h), array[h][w])
     img.save(filename)
-
-    
