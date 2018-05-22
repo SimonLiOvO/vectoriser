@@ -54,3 +54,35 @@ def getGreyscaleArray(array, mode="greyscale"):
                 raise ValueError
         grey_array.append(row)
     return grey_array
+
+
+def getSurroundingPixels(array, centre, diameter):
+    """Returns a list containing the surrdouing pixels"""
+    centre_y = centre[0]
+    centre_x = centre[1]
+    centre_value = array[centre_y][centre_x]
+    radius = int((diameter-1)/2)
+    surroudings = []
+    for h in range(centre_y - radius, centre_y + radius + 1):
+        row = []
+        for w in range(centre_x - radius, centre_x + radius + 1):
+            if h<0 or w<0:
+                value = centre_value
+            else:
+                try:
+                    value = array[h][w]
+                except IndexError:
+                    value = centre_value
+            row.append(value)
+        surroudings.append(row)
+    return surroudings
+
+
+def applyGreyscaleFilter(array, grey_filter):
+    """Apply filter to greyscale array"""
+    if len(grey_filter[0]) % 2 == 0 or len(grey_filter) % 2 == 0:
+        raise ValueError
+    dimensions = getDimensions(array)
+    for w in range(dimensions[0]):
+        for h in range(dimensions[1]):
+            pass
