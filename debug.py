@@ -12,7 +12,7 @@ def getColorMode(array):
 
 def saveBitmap(array, filename):
     """Saves a new bitmap image file. Debug use only."""
-    dimensions = v.getDimensions(array)
+    dimensions = v.helper.getDimensions(array)
     img = Image.new(getColorMode(array), (dimensions[1], dimensions[0]))
     for h in range(dimensions[0]):
         for w in range(dimensions[1]):
