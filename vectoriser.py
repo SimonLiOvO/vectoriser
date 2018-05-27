@@ -1,5 +1,6 @@
 from PIL import Image
 import math
+import numpy
 
 
 def getPixelArray(file):
@@ -29,10 +30,10 @@ def greyscaleToRGB(greyscale):
 
 
 def getDimensions(array):
-    """Returns the width and height of the bitmap iamge in a tuple"""
-    x = len(array[0])
-    y = len(array)
-    return (x, y)
+    """Returns the width and height of the bitmap iamge in a tuple (height, width)"""
+    w = len(array[0])
+    h = len(array)
+    return (h, w)
 
 
 def getGreyscaleArray(array, mode="greyscale"):
@@ -41,9 +42,9 @@ def getGreyscaleArray(array, mode="greyscale"):
     greyscale mode returns pixels as int"""
     dimensions = getDimensions(array)
     grey_array = []
-    for h in range(dimensions[1]):
+    for h in range(dimensions[0]):
         row = []
-        for w in range(dimensions[0]):
+        for w in range(dimensions[1]):
             greyscale = RGBtoGreyScale(array[h][w])
             if mode == "RGB":
                 grey_rgb = greyscaleToRGB(greyscale)
@@ -56,6 +57,15 @@ def getGreyscaleArray(array, mode="greyscale"):
     return grey_array
 
 
+def getRGBArray(array):
+    """Converts a greyscale array to RGB array"""
+    dimensions = getDimensions(array)
+    for h in range(dimensions[0]):
+        for w in range(dimensions[1]):
+            array[h][w] = greyscaleToRGB(array[h][w])
+    return array
+
+
 def getSurroundingPixels(array, centre, diameter):
     """Returns a list containing the surrdouing pixels"""
     centre_y = centre[0]
@@ -66,7 +76,7 @@ def getSurroundingPixels(array, centre, diameter):
     for h in range(centre_y - radius, centre_y + radius + 1):
         row = []
         for w in range(centre_x - radius, centre_x + radius + 1):
-            if h<0 or w<0:
+            if h < 0 or w < 0:
                 value = centre_value
             else:
                 try:
@@ -78,11 +88,33 @@ def getSurroundingPixels(array, centre, diameter):
     return surroudings
 
 
-def applyGreyscaleFilter(array, grey_filter):
+def applyKernelToLocal(local_array, grey_filter):
+    """Apply the filter to a section of a local section"""
+    output = []
+    for y in range(len(grey_filter)):
+        output_row = []
+        for x in range(len(grey_filter)):
+            # TODO: Fix index error for rectangular images
+            new_value = local_array[y][x] * grey_filter[y][x]
+            output_row.append(new_value)
+        output.append(output_row)
+    return output
+
+
+def applyKernel(array, grey_filter):
     """Apply filter to greyscale array"""
+    new_array = []
     if len(grey_filter[0]) % 2 == 0 or len(grey_filter) % 2 == 0:
         raise ValueError
     dimensions = getDimensions(array)
-    for w in range(dimensions[0]):
-        for h in range(dimensions[1]):
-            pass
+    for h in range(dimensions[0]):
+        new_row = []
+        for w in range(dimensions[1]):
+            diameter = len(grey_filter)
+            surroudings = getSurroundingPixels(array, (h, w), diameter)
+            applied = applyKernelToLocal(surroudings, grey_filter)
+            average = numpy.sum(applied)/len(applied)**2
+            average = int(round(average))
+            new_row.append(average)
+        new_array.append(new_row)
+    return new_array
