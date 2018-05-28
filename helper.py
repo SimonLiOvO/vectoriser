@@ -3,8 +3,8 @@
 
 def getDimensions(array):
     """Returns the width and height of the bitmap iamge in a tuple (height, width)"""
-    w = len(array[0])
     h = len(array)
+    w = len(array[0])
     return (h, w)
 
 
