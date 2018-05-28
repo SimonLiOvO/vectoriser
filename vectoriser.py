@@ -76,7 +76,7 @@ def pythagorean(array1, array2):
             value1 = array1[h][w]
             value2 = array2[h][w]
             new_value = (value1**2+value2**2)**0.5
-            new_value = int(new_value)
+            new_value = int(round(new_value))
             new_row.append(new_value)
         new_array.append(new_row)
     return new_array

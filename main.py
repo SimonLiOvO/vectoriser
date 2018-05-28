@@ -29,5 +29,7 @@ def save(greyscale, file):
 
 
 if __name__ == '__main__':
-    qe = getGreyscale("bitmap/clover.png")
-    save(getEdges(qe), "bitmap/edge_clover.png")
+    image = getGreyscale("bitmap/twitter.png")
+    image = getRadiusBlur(image)
+    image = getRadiusBlur(image)
+    save(getEdges(image), "bitmap/blur_edge_twitter.png")
