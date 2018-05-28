@@ -81,3 +81,6 @@ def pythagorean(array1, array2):
         new_array.append(new_row)
     return new_array
 
+
+def getGreyscaleDelta(array1, array2):
+    """Get the delta array given two arrays"""
