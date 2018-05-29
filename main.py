@@ -26,8 +26,15 @@ def getEdges(greyscale):
 def getUnsharpening(greyscale):
     blur = getGaussianBlur(greyscale)
     delta = v.getGreyscaleDelta(greyscale, blur)
-    unsharpen = v.AddGreyscales(greyscale, delta)
+    sharpen = getsharpMask(delta)
+    unsharpen = v.AddGreyscales(greyscale, sharpen)
     return unsharpen
+
+
+def getsharpMask(greyscale):
+    unsharp_kernel = [[-1, -1, -1], [-1, 8, -1], [-1, -1, -1]]
+    unsharp = v.applyKernel(greyscale, unsharp_kernel)
+    return unsharp
 
 
 def save(greyscale, file):
@@ -38,4 +45,4 @@ def save(greyscale, file):
 if __name__ == '__main__':
     image = getGreyscale("bitmap/quincy.png")
     sharpen_image = getUnsharpening(image)
-    save(sharpen_image, "bitmap/sharpen_quincy.png")
+    save(sharpen_image, "bitmap/sharpen_quincy2.png")
