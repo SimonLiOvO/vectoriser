@@ -1,6 +1,7 @@
 /__pycache__
 /bitmap
 /vector
-DOC
+/DOC
 test.py
 svgdraw.py
+stuff.py

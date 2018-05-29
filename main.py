@@ -40,9 +40,3 @@ def getsharpMask(greyscale):
 def save(greyscale, file):
     greyscale = v.GreyscaleArrayToRgb(greyscale)
     debug.saveBitmap(greyscale, file)
-
-
-if __name__ == '__main__':
-    image = getGreyscale("bitmap/quincy.png")
-    sharpen_image = getUnsharpening(image)
-    save(sharpen_image, "bitmap/sharpen_quincy2.png")
