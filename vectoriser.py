@@ -84,3 +84,36 @@ def pythagorean(array1, array2):
 
 def getGreyscaleDelta(array1, array2):
     """Get the delta array given two arrays"""
+    dimensions = helper.getDimensions(array1)
+    new_array = []
+    for h in range(dimensions[0]):
+        new_row = []
+        for w in range(dimensions[1]):
+            value1 = array1[h][w]
+            value2 = array2[h][w]
+            new_value = value1 - value2
+            new_value = int(round(new_value))
+            if new_value < 0:
+                new_value = 0
+            new_row.append(new_value)
+        new_array.append(new_row)
+    return new_array
+
+
+def AddGreyscales(array1, array2):
+    """Add two arrays"""
+    dimensions = helper.getDimensions(array1)
+    new_array = []
+    for h in range(dimensions[0]):
+        new_row = []
+        for w in range(dimensions[1]):
+            value1 = array1[h][w]
+            value2 = array2[h][w]
+            new_value = value1 + value2
+            new_value = int(round(new_value))
+            if new_value > 255:
+                new_value = 255
+            new_row.append(new_value)
+        new_array.append(new_row)
+    return new_array
+

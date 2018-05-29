@@ -8,9 +8,9 @@ def getGreyscale(file):
     return greyscale
 
 
-def getRadiusBlur(getGreyscale):
-    blur_kernel = [[1, 2, 1], [2, 4, 2], [1, 2, 1]]
-    blur = v.applyKernel(getGreyscale, blur_kernel)
+def getGaussianBlur(greyscale):
+    blur_kernel = [[0.125, 0.25, 0.125], [0.25, 0.5, 0.25], [0.125, 0.25, 0.125]]
+    blur = v.applyKernel(greyscale, blur_kernel)
     return blur
 
 
@@ -23,13 +23,19 @@ def getEdges(greyscale):
     return edges
 
 
+def getUnsharpening(greyscale):
+    blur = getGaussianBlur(greyscale)
+    delta = v.getGreyscaleDelta(greyscale, blur)
+    unsharpen = v.AddGreyscales(greyscale, delta)
+    return unsharpen
+
+
 def save(greyscale, file):
     greyscale = v.GreyscaleArrayToRgb(greyscale)
     debug.saveBitmap(greyscale, file)
 
 
 if __name__ == '__main__':
-    image = getGreyscale("bitmap/twitter.png")
-    image = getRadiusBlur(image)
-    image = getRadiusBlur(image)
-    save(getEdges(image), "bitmap/blur_edge_twitter.png")
+    image = getGreyscale("bitmap/quincy.png")
+    sharpen_image = getUnsharpening(image)
+    save(sharpen_image, "bitmap/sharpen_quincy.png")
