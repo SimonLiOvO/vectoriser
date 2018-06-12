@@ -37,6 +37,11 @@ def getsharpMask(greyscale):
     return unsharp
 
 
+def getBinary(greyscale, threshold):
+    binary = v.getBinary(greyscale, threshold)
+    return binary
+
+
 def save(greyscale, file):
     greyscale = v.GreyscaleArrayToRgb(greyscale)
     debug.saveBitmap(greyscale, file)
