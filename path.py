@@ -76,23 +76,21 @@ def getNextCorner(tuple, binary):
     return points
 
 
-def findEdge(tuple, binary, path=[]):
-    path = path
-    if len(path) == 0:
-        return findEdge(tuple, binary, path=[(tuple)])
-    if len(path) > 1 and path[0] == path[-1]:
-        return path
-    else:
-        next_points = getNextCorner(tuple, binary)
-        for point in next_points:
-            if point in path:
-                previous_index = path.index(point)-1
-                if previous_index > -1:
-                    if path[previous_index] == tuple:
-                        next_points.remove(point)
-            next_point = next_points[0]
-        path.append(next_point)
-        return findEdge(next_point, binary, path=path)
+def findEdge(tuple, binary):
+    path = [(tuple), ]
+    while True:
+        if len(path) > 1 and path[0] == path[-1]:
+            return path
+        else:
+            possible_points = getNextCorner(path[-1], binary)
+            for point in possible_points:
+                if point in path:
+                    previous_index = path.index(point)-1
+                    if previous_index > -1:
+                        if path[previous_index] == tuple:
+                            next_points.remove(point)
+            next_point = possible_points[0]
+            path.append(next_point)
 
 
 def invert(edge_path, binary):

@@ -124,7 +124,7 @@ def getBinary(array, threshold):
     for h in range(dimensiosns[0]):
         row = []
         for w in range(dimensiosns[1]):
-            if array[h][w] > threshold:
+            if array[h][w] < threshold:
                 row.append(0)
             else:
                 row.append(1)
