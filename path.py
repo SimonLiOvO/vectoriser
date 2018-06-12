@@ -1,4 +1,5 @@
-import helper as h
+import helper as hp
+from matplotlib import path
 
 question = [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
@@ -29,9 +30,9 @@ question = [
 ]
 
 nine = [
-    [0, 1, 1],
-    [0, 0, 1],
-    [1, 0, 1],
+    [0, 0, 0],
+    [0, 1, 0],
+    [0, 0, 0],
 ]
 
 
@@ -39,11 +40,11 @@ def getCorner(tuple, binary):
     """Returns four pixels of the given corner from (0, 0) in clockwise order."""
     y = tuple[0]
     x = tuple[1]
-    height, width = h.getDimensions(binary)
+    height, width = hp.getDimensions(binary)
     if y - height > 1 or x - width > 1:
-        raise IndexError("Out of index.")
+        raise IndexError("Out of index")
     if y < 0 or x < 0:
-        raise IndexError("Index must be postive.")
+        raise IndexError("Index must be postive")
     deltas = [(-1, -1), (-1, 0), (0, 0), (0, -1)]
     adjacent_pixels = []
     for delta in deltas:
@@ -61,6 +62,7 @@ def getCorner(tuple, binary):
 
 
 def getNextCorner(tuple, binary):
+    """Returns a list that contains possible next steps of the path."""
     pixels = getCorner(tuple, binary)
     points = []
     if pixels[0] == 0 and pixels[1] == 1:
@@ -93,6 +95,35 @@ def findEdge(tuple, binary, path=[]):
         return findEdge(next_point, binary, path=path)
 
 
+def invert(edge_path, binary):
+    """Invert pixels included in the path"""
+    p = path.Path(edge_path)
+    dimensions = hp.getDimensions(binary)
+    for h in range(dimensions[0]):
+        for w in range(dimensions[1]):
+            if p.contains_points([(h+0.5, w+0.5)])[0]:
+                binary[h][w] = 1 - binary[h][w]
+    return binary
+
+
+def decompose(binary):
+    binary = binary
+    dimensions = hp.getDimensions(binary)
+    paths = []
+    for h in range(dimensions[0]+1):
+        for w in range(dimensions[1]+1):
+            if getNextCorner((h, w), binary):
+                edge_path = findEdge((h, w), binary)
+                paths.append(edge_path)
+                p = path.Path(edge_path)
+                for h in range(dimensions[0]):
+                    for w in range(dimensions[1]):
+                        if p.contains_points([(h+0.5, w+0.5)])[0]:
+                            binary[h][w] = 1 - binary[h][w]
+    return paths
+
+
 if __name__ == "__main__":
-    a = findEdge((2, 2), nine)
-    print(a)
+    a = decompose(question)
+    for path in a:
+        print(path)
