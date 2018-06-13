@@ -14,3 +14,6 @@ Potrace algorithm takes a binary imgae (image with only #fff and #000) as input 
 
 ## How to use Vectoriser
 OvO
+
+## Known issues
+- Produces a 1x1 triangle path when it shuold produce a 1x1 rectangle path
