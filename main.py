@@ -37,8 +37,8 @@ def getsharpMask(greyscale):
     return unsharp
 
 
-def getBinary(greyscale, threshold):
-    binary = v.getBinary(greyscale, threshold)
+def getBinary(greyscale, threshold, invert=False):
+    binary = v.getBinary(greyscale, threshold, invert=invert)
     return binary
 
 

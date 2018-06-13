@@ -118,16 +118,22 @@ def AddGreyscales(array1, array2):
     return new_array
 
 
-def getBinary(array, threshold):
+def getBinary(array, threshold, invert=False):
     dimensiosns = helper.getDimensions(array)
     binary = []
     for h in range(dimensiosns[0]):
         row = []
         for w in range(dimensiosns[1]):
-            if array[h][w] < threshold:
-                row.append(0)
+            if array[h][w] > threshold:
+                if invert:
+                    row.append(1)
+                else:
+                    row.append(0)
             else:
-                row.append(1)
+                if invert:
+                    row.append(0)
+                else:
+                    row.append(1)
         binary.append(row)
     return binary
 
