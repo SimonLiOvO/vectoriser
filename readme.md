@@ -6,3 +6,4 @@ Vectoriser is a python project that converts bitmap image to vector.
 - Svgwrite
 - Numpy
 - Matplotlib
+- Shapely ([Windows Installation](https://pypi.org/project/Shapely/#downloads))

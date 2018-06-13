@@ -1,5 +1,7 @@
 import helper as hp
 from matplotlib import path
+from shapely.geometry import Polygon
+
 
 question = [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
@@ -121,7 +123,17 @@ def decompose(binary):
     return paths
 
 
+def reduceByArea(paths, threshold):
+    reduced = []
+    for path in paths:
+        polygon = Polygon(path)
+        if polygon.area >= threshold:
+            reduced.append(path)
+    return reduced
+
+
 if __name__ == "__main__":
     a = decompose(question)
+    a = reduceByArea(a, hp.getAreaThreshold(a, 0.02))
     for path in a:
         print(path)

@@ -53,3 +53,17 @@ def getSurroundingPixels(array, centre, diameter):
             row.append(value)
         surroudings.append(row)
     return surroudings
+
+
+def getAreaThreshold(binary, percentage=0, abs=None):
+    """
+    Calulate the threshold given the precentage of the binary size\n
+    If you want a 2% threshold, precentage parameter should be 0.02\n
+    You can also abs parameter to specify the absolute threshold
+    """
+    if abs:
+        area = abs
+    else:
+        dimensiosn = getDimensions(binary)
+        area = dimensiosn[0]*dimensiosn[1]*percentage
+    return area
