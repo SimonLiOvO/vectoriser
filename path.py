@@ -107,6 +107,7 @@ def invert(edge_path, binary):
 
 
 def decompose(binary):
+    """Decompose the binary image into a bunch of closed paths"""
     binary = binary
     dimensions = hp.getDimensions(binary)
     paths = []
@@ -124,6 +125,7 @@ def decompose(binary):
 
 
 def reduceByArea(paths, threshold):
+    """Remove paths smaller than the threshold"""
     reduced = []
     for path in paths:
         polygon = Polygon(path)
@@ -132,8 +134,69 @@ def reduceByArea(paths, threshold):
     return reduced
 
 
+def checkStraightLineDistance(line_starts, line_ends, point):
+    """
+    Return True if distance between the point and straight line is bigger
+    than 1
+    """
+    y1, x1 = line_starts
+    y2, x2 = line_ends
+    y0, x0 = point
+    numerator = abs((y2-y1)*x0 - (x2 - x1)*y0 + x2*y1 - y2*x1)
+    denominator = ((y2 - y1)**2 + (x2 - x1)**2)**0.5
+    if denominator == 0:
+        return False
+    distance = numerator/denominator
+    if distance > 0.5:
+        return True
+    else:
+        return False
+
+
+def getStraightLines(closed_path):
+    """Decompose a closed_path into stright lines"""
+    closed_path = closed_path
+    lines = []
+    while True:
+        if len(lines) > 1:
+            if lines[0][0] == lines[-1][-1]:
+                return lines
+        stop_line = False
+        straight_line = []
+        if len(straight_line) == 0:
+            straight_line.append(closed_path[0])
+        for i in range(1, len(closed_path)):
+            for s_point in straight_line:
+                if checkStraightLineDistance(straight_line[0], closed_path[i], s_point):
+                    stop_line = True
+                    break
+            if stop_line:
+                lines.append(straight_line)
+                closed_path = closed_path[i:]
+                break
+            else:
+                straight_line.append(closed_path[i])
+        if stop_line:
+            continue
+        else:
+            lines.append(straight_line)
+            closed_path = closed_path[i:]
+
+
+def svgConstructor(polygon):
+    """returns a svg path setting"""
+    string = ""
+    string += "M{},{}".format(polygon[0][0][1], polygon[0][0][0])
+    for i in range(1, len(polygon)):
+        string += " L{},{}".format(polygon[i][-1][1], polygon[i][-1][0])
+    string += " Z"
+    return string
+
+
 if __name__ == "__main__":
     a = decompose(question)
     a = reduceByArea(a, hp.getAreaThreshold(a, 0.02))
-    for path in a:
-        print(path)
+    # for path in a:
+    #     print(path)
+    b = getStraightLines(a[0])
+    print(svgConstructor(b))
