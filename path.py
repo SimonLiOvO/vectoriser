@@ -198,5 +198,5 @@ if __name__ == "__main__":
     a = reduceByArea(a, hp.getAreaThreshold(a, 0.02))
     # for path in a:
     #     print(path)
-    b = getStraightLines(a[0])
+    b = getStraightLines(a[1])
     print(svgConstructor(b))

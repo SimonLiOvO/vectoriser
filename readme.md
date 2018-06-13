@@ -1,5 +1,4 @@
 # Vectoriser
-## Introduction
 This is my own implementation of Potrace bitmap tracing algorithm.
 
 ## Potrace
@@ -12,3 +11,6 @@ Potrace algorithm takes a binary imgae (image with only #fff and #000) as input 
 - Numpy
 - Matplotlib
 - Shapely ([Windows Installation](https://pypi.org/project/Shapely/#downloads))
+
+## How to use Vectoriser
+OvO
