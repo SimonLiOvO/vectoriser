@@ -187,16 +187,16 @@ def svgConstructor(polygon):
     """returns a svg path setting"""
     string = ""
     string += "M{},{}".format(polygon[0][0][1], polygon[0][0][0])
-    for i in range(1, len(polygon)):
+    for i in range(0, len(polygon)):
         string += " L{},{}".format(polygon[i][-1][1], polygon[i][-1][0])
     string += " Z"
     return string
 
 
 if __name__ == "__main__":
-    a = decompose(question)
-    a = reduceByArea(a, hp.getAreaThreshold(a, 0.02))
-    # for path in a:
-    #     print(path)
-    b = getStraightLines(a[1])
-    print(svgConstructor(b))
+    paths = decompose(nine)
+    paths = reduceByArea(paths, hp.getAreaThreshold(paths, 0.02))
+    for path in paths:
+        straight_line = getStraightLines(path)
+        print(svgConstructor(straight_line))
+    print(getStraightLines(paths[0]))
