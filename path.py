@@ -65,6 +65,14 @@ def getCorner(tuple, binary):
 
 def getNextCorner(tuple, binary):
     """Returns a list that contains possible next steps of the path."""
+    # binary = binary
+    if tuple == (113, 448):
+        print("?")
+    pixels = getCorner(tuple, binary)
+    if pixels == [1, 0, 1, 0]:
+        binary[tuple[0]][tuple[1]] = 0
+    if pixels == [0, 1, 0, 1]:
+        binary[tuple[0]][tuple[1]-1] = 0
     pixels = getCorner(tuple, binary)
     points = []
     if pixels[0] == 0 and pixels[1] == 1:
@@ -75,35 +83,28 @@ def getNextCorner(tuple, binary):
         points.append((tuple[0]+1, tuple[1]))
     if pixels[3] == 0 and pixels[0] == 1:
         points.append((tuple[0], tuple[1] - 1))
-    return points
+    return points, binary
 
 
 def findEdge(tuple, binary):
     path = [(tuple), ]
+    binary = binary
     while True:
         if len(path) > 1 and path[0] == path[-1]:
             return path
         else:
-            possible_points = getNextCorner(path[-1], binary)
+            print("finding edge", path[-1])
+            possible_points, binary = getNextCorner(path[-1], binary)
             for point in possible_points:
                 if point in path:
                     previous_index = path.index(point)-1
                     if previous_index > -1:
-                        if path[previous_index] == tuple:
-                            next_points.remove(point)
-            next_point = possible_points[0]
+                        possible_points.remove(point)
+            try:
+                next_point = possible_points[0]
+            except IndexError:
+                raise IndexError("This error should only occur when processing diagonal pixels, refer to readme.md for more info.")
             path.append(next_point)
-
-
-def invert(edge_path, binary):
-    """Invert pixels included in the path"""
-    p = path.Path(edge_path)
-    dimensions = hp.getDimensions(binary)
-    for h in range(dimensions[0]):
-        for w in range(dimensions[1]):
-            if p.contains_points([(h+0.5, w+0.5)])[0]:
-                binary[h][w] = 1 - binary[h][w]
-    return binary
 
 
 def decompose(binary):
@@ -113,7 +114,8 @@ def decompose(binary):
     paths = []
     for h in range(dimensions[0]+1):
         for w in range(dimensions[1]+1):
-            if getNextCorner((h, w), binary):
+            print(h, w)
+            if getNextCorner((h, w), binary)[0]:
                 edge_path = findEdge((h, w), binary)
                 paths.append(edge_path)
                 p = path.Path(edge_path)
@@ -194,9 +196,9 @@ def svgConstructor(polygon):
 
 
 if __name__ == "__main__":
-    paths = decompose(nine)
+    paths = decompose(question)
     paths = reduceByArea(paths, hp.getAreaThreshold(paths, 0.02))
     for path in paths:
         straight_line = getStraightLines(path)
         print(svgConstructor(straight_line))
-    print(getStraightLines(paths[0]))
+    # print(getCorner((17,38), twitter))
