@@ -63,16 +63,25 @@ def getCorner(tuple, binary):
     return adjacent_pixels
 
 
-def getNextCorner(tuple, binary):
-    """Returns a list that contains possible next steps of the path."""
-    # binary = binary
-    if tuple == (113, 448):
-        print("?")
+def diagonalCompensate(tuple, binary, invert):
+    """Adds an extra pixel when four pixels are diagonal"""
     pixels = getCorner(tuple, binary)
     if pixels == [1, 0, 1, 0]:
-        binary[tuple[0]][tuple[1]] = 0
+        if invert:
+            binary[tuple[0]-1][tuple[1]] = 1
+        else:
+            binary[tuple[0]][tuple[1]] = 0
     if pixels == [0, 1, 0, 1]:
-        binary[tuple[0]][tuple[1]-1] = 0
+        if invert:
+            binary[tuple[0]-1][tuple[1]-1] = 1
+        else:
+            binary[tuple[0]][tuple[1]-1] = 0
+    return binary
+
+
+def getNextCorner(tuple, binary, invert=False):
+    """Returns a list that contains possible next steps of the path."""
+    binary = diagonalCompensate(tuple, binary, invert=invert)
     pixels = getCorner(tuple, binary)
     points = []
     if pixels[0] == 0 and pixels[1] == 1:
@@ -86,6 +95,16 @@ def getNextCorner(tuple, binary):
     return points, binary
 
 
+def detectDeadend(possible_points, path):
+    """Remove points that alrready exist from the possible point list"""
+    for point in possible_points:
+        if point in path:
+            previous_index = path.index(point)-1
+            if previous_index > -1:
+                possible_points.remove(point)
+    return possible_points
+
+
 def findEdge(tuple, binary):
     path = [(tuple), ]
     binary = binary
@@ -94,16 +113,15 @@ def findEdge(tuple, binary):
             return path
         else:
             print("finding edge", path[-1])
-            possible_points, binary = getNextCorner(path[-1], binary)
-            for point in possible_points:
-                if point in path:
-                    previous_index = path.index(point)-1
-                    if previous_index > -1:
-                        possible_points.remove(point)
             try:
-                next_point = possible_points[0]
+                possible_points, binary = getNextCorner(path[-1], binary)
+                next_point = detectDeadend(possible_points, path)[0]
             except IndexError:
-                raise IndexError("This error should only occur when processing diagonal pixels, refer to readme.md for more info.")
+                try:
+                    possible_points, binary = getNextCorner(path[-1], binary, invert=True)
+                    next_point = detectDeadend(possible_points, path)[0]
+                except IndexError:
+                    raise IndexError("This error should only occur when processing diagonal pixels, refer to readme.md for more info.")
             path.append(next_point)
 
 
