@@ -1,7 +1,6 @@
 from PIL import Image
 import math
-import numpy
-import helper
+import hp.as hp
 
 
 def getRgbArray(file):
@@ -21,14 +20,14 @@ def RgbArrayToGreyscale(array, mode="greyscale"):
     """Converts a RGB or RGBA array to greyscale\n
     RGB mode returns pixels as RGB tuples\n
     greyscale mode returns pixels as int"""
-    dimensions = helper.getDimensions(array)
+    dimensions = hp.getDimensions(array)
     grey_array = []
     for h in range(dimensions[0]):
         row = []
         for w in range(dimensions[1]):
-            greyscale = helper.RgbToGreyscale(array[h][w])
+            greyscale = hp.RgbToGreyscale(array[h][w])
             if mode == "RGB":
-                grey_rgb = helper.greyscaleToRgb(greyscale)
+                grey_rgb = hp.greyscaleToRgb(greyscale)
                 row.append(grey_rgb)
             elif mode == "greyscale":
                 row.append(greyscale)
@@ -43,14 +42,14 @@ def applyKernel(array, grey_filter):
     new_array = []
     if len(grey_filter[0]) % 2 == 0 or len(grey_filter) % 2 == 0:
         raise ValueError
-    dimensions = helper.getDimensions(array)
+    dimensions = hp.getDimensions(array)
     for h in range(dimensions[0]):
         new_row = []
         for w in range(dimensions[1]):
             diameter = len(grey_filter)
-            surroudings = helper.getSurroundingPixels(array, (h, w), diameter)
-            applied = helper.applyKernelToLocal(surroudings, grey_filter)
-            average = numpy.sum(applied)/len(applied)**2
+            surroudings = hp.getSurroundingPixels(array, (h, w), diameter)
+            applied = hp.applyKernelToLocal(surroudings, grey_filter)
+            average = hp.getSum(applied)/len(applied)**2
             average = int(round(average))
             new_row.append(average)
         new_array.append(new_row)
@@ -59,7 +58,7 @@ def applyKernel(array, grey_filter):
 
 def pythagorean(array1, array2):
     """Returns an array that contains the pythagorean value for each element"""
-    dimensions = helper.getDimensions(array1)
+    dimensions = hp.getDimensions(array1)
     new_array = []
     for h in range(dimensions[0]):
         new_row = []
@@ -75,7 +74,7 @@ def pythagorean(array1, array2):
 
 def getGreyscaleDelta(array1, array2):
     """Get the delta array given two arrays"""
-    dimensions = helper.getDimensions(array1)
+    dimensions = hp.getDimensions(array1)
     new_array = []
     for h in range(dimensions[0]):
         new_row = []
@@ -93,7 +92,7 @@ def getGreyscaleDelta(array1, array2):
 
 def AddGreyscales(array1, array2):
     """Add two arrays"""
-    dimensions = helper.getDimensions(array1)
+    dimensions = hp.getDimensions(array1)
     new_array = []
     for h in range(dimensions[0]):
         new_row = []
@@ -110,7 +109,7 @@ def AddGreyscales(array1, array2):
 
 
 def getBinary(array, threshold, invert=False):
-    dimensiosns = helper.getDimensions(array)
+    dimensiosns = hp.getDimensions(array)
     binary = []
     for h in range(dimensiosns[0]):
         row = []

@@ -67,3 +67,11 @@ def getAreaThreshold(binary, percentage=0, abs=None):
         dimensiosn = getDimensions(binary)
         area = dimensiosn[0]*dimensiosn[1]*percentage
     return area
+
+
+def getSum(list):
+    """Returns the sum of 2D array"""
+    total = 0
+    for row in list:
+        total += sum(row)
+    return total
