@@ -8,7 +8,7 @@ Potrace algorithm takes a binary imgae (image with only #fff and #000) as input 
 
 ## Required Packages
 - Svgwrite
-- Numpy
+- ~~Numpy~~
 - Matplotlib
 - Shapely ([Windows Installation](https://pypi.org/project/Shapely/#files))
 
