@@ -10,7 +10,7 @@ Potrace algorithm takes a binary imgae (image with only #fff and #000) as input 
 - Svgwrite
 - Numpy
 - Matplotlib
-- Shapely ([Windows Installation](https://pypi.org/project/Shapely/#downloads))
+- Shapely ([Windows Installation](https://pypi.org/project/Shapely/#files))
 
 ## How to use Vectoriser
 OvO
