@@ -38,15 +38,6 @@ def RgbArrayToGreyscale(array, mode="greyscale"):
     return grey_array
 
 
-def GreyscaleArrayToRgb(array):
-    """Converts a greyscale array to RGB array"""
-    dimensions = helper.getDimensions(array)
-    for h in range(dimensions[0]):
-        for w in range(dimensions[1]):
-            array[h][w] = helper.greyscaleToRgb(array[h][w])
-    return array
-
-
 def applyKernel(array, grey_filter):
     """Apply kernel filter to greyscale array"""
     new_array = []
@@ -126,27 +117,13 @@ def getBinary(array, threshold, invert=False):
         for w in range(dimensiosns[1]):
             if array[h][w] > threshold:
                 if invert:
-                    row.append(1)
-                else:
                     row.append(0)
+                else:
+                    row.append(1)
             else:
                 if invert:
-                    row.append(0)
-                else:
                     row.append(1)
-        binary.append(row)
-    return binary
-
-
-def binaryToGreyscale(array):
-    dimensiosns = helper.getDimensions(array)
-    binary = []
-    for h in range(dimensiosns[0]):
-        row = []
-        for w in range(dimensiosns[1]):
-            if array[h][w] == 1:
-                row.append(255)
-            else:
-                row.append(0)
+                else:
+                    row.append(0)
         binary.append(row)
     return binary
