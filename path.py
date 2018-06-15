@@ -3,41 +3,6 @@ from matplotlib import path
 from shapely.geometry import Polygon
 
 
-question = [
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-]
-
-nine = [
-    [0, 0, 0],
-    [0, 1, 0],
-    [0, 0, 0],
-]
-
-
 def getCorner(tuple, binary):
     """Returns four pixels of the given corner from (0, 0) in clockwise order."""
     y = tuple[0]
@@ -70,12 +35,12 @@ def diagonalCompensate(tuple, binary, invert):
         if invert:
             binary[tuple[0]-1][tuple[1]] = 1
         else:
-            binary[tuple[0]][tuple[1]] = 0
+            binary[tuple[0]-1][tuple[1]-1] = 0
     if pixels == [0, 1, 0, 1]:
         if invert:
-            binary[tuple[0]-1][tuple[1]-1] = 1
+            binary[tuple[0]][tuple[1]] = 1
         else:
-            binary[tuple[0]][tuple[1]-1] = 0
+            binary[tuple[0]-1][tuple[1]] = 0
     return binary
 
 
@@ -110,9 +75,10 @@ def findEdge(tuple, binary):
     binary = binary
     while True:
         if len(path) > 1 and path[0] == path[-1]:
+            print("")
             return path
         else:
-            print("finding edge", path[-1])
+            print("Tracing at {} \r".format((path[-1])), end="")
             try:
                 possible_points, binary = getNextCorner(path[-1], binary)
                 next_point = detectDeadend(possible_points, path)[0]
@@ -121,8 +87,26 @@ def findEdge(tuple, binary):
                     possible_points, binary = getNextCorner(path[-1], binary, invert=True)
                     next_point = detectDeadend(possible_points, path)[0]
                 except IndexError:
+                    print("")
+                    print("Last 10 points of the path: {}".format(path[-10:]))
                     raise IndexError("This error should only occur when processing diagonal pixels, refer to readme.md for more info.")
             path.append(next_point)
+
+
+def invert(edge_path, binary):
+    """Invert pixels inside the path"""
+    min_y = min(edge_path, key = lambda t: t[0])[0]
+    min_x = min(edge_path, key = lambda t: t[1])[1]
+    max_y = max(edge_path, key = lambda t: t[0])[0]
+    max_x = max(edge_path, key = lambda t: t[1])[1]
+    p = path.Path(edge_path)
+    for h in range(min_y, max_y+1):
+        for w in range(min_x, max_x):
+            print("Inverting at {} \r".format((h, w)), end="")
+            if p.contains_points([(h+0.5, w+0.5)])[0]:
+                binary[h][w] = 1 - binary[h][w]
+    print("")
+    return binary
 
 
 def decompose(binary):
@@ -132,15 +116,11 @@ def decompose(binary):
     paths = []
     for h in range(dimensions[0]+1):
         for w in range(dimensions[1]+1):
-            print(h, w)
+            print("Looking for edges at {} \r".format((h, w)), end="")
             if getNextCorner((h, w), binary)[0]:
                 edge_path = findEdge((h, w), binary)
                 paths.append(edge_path)
-                p = path.Path(edge_path)
-                for h in range(dimensions[0]):
-                    for w in range(dimensions[1]):
-                        if p.contains_points([(h+0.5, w+0.5)])[0]:
-                            binary[h][w] = 1 - binary[h][w]
+                binary = invert(edge_path, binary)
     return paths
 
 
@@ -219,4 +199,3 @@ if __name__ == "__main__":
     for path in paths:
         straight_line = getStraightLines(path)
         print(svgConstructor(straight_line))
-    # print(getCorner((17,38), twitter))

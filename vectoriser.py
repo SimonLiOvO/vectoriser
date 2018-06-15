@@ -1,6 +1,6 @@
 from PIL import Image
 import math
-import hp.as hp
+import helper as hp
 
 
 def getRgbArray(file):
@@ -67,42 +67,6 @@ def pythagorean(array1, array2):
             value2 = array2[h][w]
             new_value = (value1**2+value2**2)**0.5
             new_value = int(round(new_value))
-            new_row.append(new_value)
-        new_array.append(new_row)
-    return new_array
-
-
-def getGreyscaleDelta(array1, array2):
-    """Get the delta array given two arrays"""
-    dimensions = hp.getDimensions(array1)
-    new_array = []
-    for h in range(dimensions[0]):
-        new_row = []
-        for w in range(dimensions[1]):
-            value1 = array1[h][w]
-            value2 = array2[h][w]
-            new_value = value1 - value2
-            new_value = int(round(new_value))
-            if new_value < 0:
-                new_value = 0
-            new_row.append(new_value)
-        new_array.append(new_row)
-    return new_array
-
-
-def AddGreyscales(array1, array2):
-    """Add two arrays"""
-    dimensions = hp.getDimensions(array1)
-    new_array = []
-    for h in range(dimensions[0]):
-        new_row = []
-        for w in range(dimensions[1]):
-            value1 = array1[h][w]
-            value2 = array2[h][w]
-            new_value = value1 + value2
-            new_value = int(round(new_value))
-            if new_value > 255:
-                new_value = 255
             new_row.append(new_value)
         new_array.append(new_row)
     return new_array

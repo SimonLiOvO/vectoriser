@@ -10,7 +10,10 @@ def getDimensions(array):
 
 def RgbToGreyscale(rgb):
     """Converts a RGB tuple to greyscale value"""
-    greyscale = 0.2989*rgb[0]+0.5870*rgb[1]+0.1140*rgb[2]
+    try:
+        greyscale = 0.2989*rgb[0]+0.5870*rgb[1]+0.1140*rgb[2]
+    except TypeError:
+        greyscale = rgb
     greyscale = int(round(greyscale))
     return greyscale
 

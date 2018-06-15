@@ -2,12 +2,6 @@ import vectoriser as v
 import debug
 
 
-def getGreyscale(file):
-    rgb = v.getRgbArray(file)
-    greyscale = v.RgbArrayToGreyscale(rgb)
-    return greyscale
-
-
 def getGaussianBlur(greyscale):
     blur_kernel = [[0.125, 0.25, 0.125], [0.25, 0.5, 0.25], [0.125, 0.25, 0.125]]
     blur = v.applyKernel(greyscale, blur_kernel)
