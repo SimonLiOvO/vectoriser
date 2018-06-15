@@ -5,6 +5,7 @@ import helper as hp
 
 def getColorMode(array):
     """Return the color mode of the image using pixel data"""
+    # Some PNG files need RGBA mode to store opacity value
     if len(array[0][0]) == 3:
         return "RGB"
     if len(array[0][0]) == 4:
@@ -12,6 +13,7 @@ def getColorMode(array):
 
 
 def binaryToGreyscale(array):
+    """Converts binary value back to 0 or 225"""
     dimensiosns = hp.getDimensions(array)
     binary = []
     for h in range(dimensiosns[0]):

@@ -11,8 +11,10 @@ def getDimensions(array):
 def RgbToGreyscale(rgb):
     """Converts a RGB tuple to greyscale value"""
     try:
+        # Different weight for different colour wave length
         greyscale = 0.2989*rgb[0]+0.5870*rgb[1]+0.1140*rgb[2]
     except TypeError:
+        # Some iamge compression stores greyscale when there is no colour
         greyscale = rgb
     greyscale = int(round(greyscale))
     return greyscale
@@ -26,6 +28,7 @@ def greyscaleToRgb(greyscale):
 
 def applyKernelToLocal(local_array, grey_filter):
     """Apply the filter to a section of a local section"""
+    # Multiple the respective kernel value and average everything out
     output = []
     for y in range(len(grey_filter)):
         output_row = []
@@ -47,11 +50,13 @@ def getSurroundingPixels(array, centre, diameter):
         row = []
         for w in range(centre_x - radius, centre_x + radius + 1):
             if h < 0 or w < 0:
+                # fill in centre value if out of bound
                 value = centre_value
             else:
                 try:
                     value = array[h][w]
                 except IndexError:
+                    # fill in centre value if out of bound
                     value = centre_value
             row.append(value)
         surroudings.append(row)
