@@ -8,7 +8,6 @@ Potrace algorithm takes a binary imgae (image with only #fff and #000) as input 
 
 ## Required Packages
 - Svgwrite
-- ~~Numpy~~
 - Matplotlib
 - Shapely ([Windows Installation](https://pypi.org/project/Shapely/#files))
 
@@ -28,7 +27,7 @@ Because of a design flaw in my implementation, the program cannot exit a loop th
 
 ## Troubleshooting
     IndexError: list index out of range at w = len(array[0])
-An empty imgae is probably passed. Use ```debug.saveBitmap()``` to preview the binary image.
+The program was probably trying to trace an blank image. Use ```debug.saveBitmap()``` to preview the binary image.
 
 ## Other Known Issues
 - Produces a 1x1 triangle path when it shuold produce a 1x1 rectangle path
