@@ -1,5 +1,5 @@
 from PIL import Image
-import vectoriser as v
+import image as i
 import helper as hp
 
 
