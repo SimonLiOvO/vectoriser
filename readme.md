@@ -20,7 +20,7 @@ Potrace algorithm takes a binary imgae (image with only #fff and #000) as input 
  (You can use ``` hp.getAreaThreshold(paths, ratio) ``` to compute the size in terms of path_size/image_size ratio)
  - Get striaght lines in a closed path using ```p.getStraightLines(path)```
  - Construct the SVG path data value using  ``` p.svgConstructor(straight_line) ```
- - Use svgwrite.<span></span>py to output the vector image
+ - Use svgdraw.<span></span>py to output the vector image
 
 ## Diagonal Bug
 Because of a design flaw in my implementation, the program cannot exit a loop that has a diagonal open for the tracing to enter. The workaround is ```path.diagonalCompensate()```, but it only deals with half of the possible scenarios. Therefore, you will still encounter this bug.
