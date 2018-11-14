@@ -1,5 +1,5 @@
 # Vectoriser
-This is my janky and incomplete implementation of Potrace bitmap tracing algorithm.
+This is my own implementation of Potrace bitmap tracing algorithm.
 
 ## Potrace
 Potrace algorithm takes a binary imgae (image with only #fff and #000) as input and outputs a vector image.
@@ -20,14 +20,14 @@ Potrace algorithm takes a binary imgae (image with only #fff and #000) as input 
  (You can use ``` hp.getAreaThreshold(paths, ratio) ``` to compute the size in terms of path_size/image_size ratio)
  - Get striaght lines in a closed path using ```p.getStraightLines(path)```
  - Construct the SVG path data value using  ``` p.svgConstructor(straight_line) ```
- - Use svgdraw.<span></span>py to output the vector image
+ - Use svgwrite.<span></span>py to output the vector image
 
 ## Diagonal Bug
 Because of a design flaw in my implementation, the program cannot exit a loop that has a diagonal open for the tracing to enter. The workaround is ```path.diagonalCompensate()```, but it only deals with half of the possible scenarios. Therefore, you will still encounter this bug.
 
 ## Troubleshooting
     IndexError: list index out of range at w = len(array[0])
-The program was probably trying to trace a blank image. Use ```debug.saveBitmap()``` to preview the binary image.
+The program was probably trying to trace an blank image. Use ```debug.saveBitmap()``` to preview the binary image.
 
 ## Other Known Issues
 - Produces a 1x1 triangle path when it shuold produce a 1x1 rectangle path
